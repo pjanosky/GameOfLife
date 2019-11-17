@@ -15,6 +15,12 @@
 		8E5C09122382033400A777B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5C09102382033400A777B1 /* LaunchScreen.storyboard */; };
 		8E5C091D2382033400A777B1 /* Game_of_Life_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C091C2382033400A777B1 /* Game_of_Life_AppTests.swift */; };
 		8E5C09282382033400A777B1 /* Game_of_Life_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C09272382033400A777B1 /* Game_of_Life_AppUITests.swift */; };
+		D0F647EF2382070E00BD113C /* Colony.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647EC2382070E00BD113C /* Colony.swift */; };
+		D0F647F12382070E00BD113C /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647EE2382070E00BD113C /* Cell.swift */; };
+		D0F647F72382077400BD113C /* ColonyDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647F32382077400BD113C /* ColonyDetail.swift */; };
+		D0F647F82382077400BD113C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647F42382077400BD113C /* Data.swift */; };
+		D0F647F92382077400BD113C /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647F52382077400BD113C /* ControlsView.swift */; };
+		D0F647FA2382077400BD113C /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647F62382077400BD113C /* GridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,12 @@
 		8E5C09232382033400A777B1 /* Game of Life AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Game of Life AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5C09272382033400A777B1 /* Game_of_Life_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_of_Life_AppUITests.swift; sourceTree = "<group>"; };
 		8E5C09292382033400A777B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0F647EC2382070E00BD113C /* Colony.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colony.swift; sourceTree = "<group>"; };
+		D0F647EE2382070E00BD113C /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		D0F647F32382077400BD113C /* ColonyDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColonyDetail.swift; sourceTree = "<group>"; };
+		D0F647F42382077400BD113C /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D0F647F52382077400BD113C /* ControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
+		D0F647F62382077400BD113C /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +114,11 @@
 				8E5C09052382033000A777B1 /* AppDelegate.swift */,
 				8E5C09072382033000A777B1 /* SceneDelegate.swift */,
 				8E5C09092382033000A777B1 /* ContentView.swift */,
+				D0F647F32382077400BD113C /* ColonyDetail.swift */,
+				D0F647F62382077400BD113C /* GridView.swift */,
+				D0F647F52382077400BD113C /* ControlsView.swift */,
+				D0F647F42382077400BD113C /* Data.swift */,
+				D0F647F22382074700BD113C /* Game Code */,
 				8E5C090B2382033400A777B1 /* Assets.xcassets */,
 				8E5C09102382033400A777B1 /* LaunchScreen.storyboard */,
 				8E5C09132382033400A777B1 /* Info.plist */,
@@ -134,6 +151,15 @@
 				8E5C09292382033400A777B1 /* Info.plist */,
 			);
 			path = "Game of Life AppUITests";
+			sourceTree = "<group>";
+		};
+		D0F647F22382074700BD113C /* Game Code */ = {
+			isa = PBXGroup;
+			children = (
+				D0F647EC2382070E00BD113C /* Colony.swift */,
+				D0F647EE2382070E00BD113C /* Cell.swift */,
+			);
+			path = "Game Code";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +293,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F647F82382077400BD113C /* Data.swift in Sources */,
 				8E5C09062382033000A777B1 /* AppDelegate.swift in Sources */,
 				8E5C09082382033000A777B1 /* SceneDelegate.swift in Sources */,
+				D0F647F72382077400BD113C /* ColonyDetail.swift in Sources */,
+				D0F647F92382077400BD113C /* ControlsView.swift in Sources */,
 				8E5C090A2382033000A777B1 /* ContentView.swift in Sources */,
+				D0F647EF2382070E00BD113C /* Colony.swift in Sources */,
+				D0F647FA2382077400BD113C /* GridView.swift in Sources */,
+				D0F647F12382070E00BD113C /* Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
