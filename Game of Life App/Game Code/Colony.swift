@@ -11,9 +11,10 @@ struct Colony: CustomStringConvertible, Identifiable {
     var name: String
     private (set) var size: Int
     private (set) var generationNumber = 0
-    private var cells = Set<Cell>()
+    var cells = Set<Cell>()
     private var wrapping = true
     var id = Data.nextColonyID
+    var type: ColonyType
     
     var offsets: [(row: Int, col: Int)] = [
         (-1, -1),
@@ -26,9 +27,16 @@ struct Colony: CustomStringConvertible, Identifiable {
         (1, 1)
     ]
     
-    init(size: Int, name: String) {
+    init(size: Int, name: String, colony: Bool = true) {
         self.name = name
         self.size = size
+        self.type = .colony
+    }
+    
+    init(size: Int, name: String, template: Bool) {
+        self.name = name
+        self.size = size
+        self.type = .template
     }
     
     mutating func setColonyFromCells(cells: Set<Cell>) {
@@ -140,4 +148,11 @@ struct Colony: CustomStringConvertible, Identifiable {
         }
         return "generation #\(generationNumber)\n\(result)"
     }
+}
+
+enum ColonyType: String, CaseIterable, Identifiable {
+    var id: Int {
+        self == .colony ? 0 : 1
+    }
+    case colony = "Colonies", template = "Templates"
 }

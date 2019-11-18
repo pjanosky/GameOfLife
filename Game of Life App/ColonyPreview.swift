@@ -11,10 +11,6 @@ import SwiftUI
 struct ColonyPreview: View {
     @Binding var colony: Colony
     
-    /*init(colony: Colony) {
-        self.colony = colony
-    }*/
-    
     var body: some View {
         VStack {
             Text("\(colony.name)").font(.headline)

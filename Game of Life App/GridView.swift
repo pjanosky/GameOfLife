@@ -12,8 +12,6 @@ import SwiftUI
 struct GridView: View {
     @Binding var colony: Colony
     var calculator: GridCalculator
-    let deadCellColor = Color(#colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1))
-    let aliveCellColor = Color.accentColor
     @State var settingAlive = true
     @State var start = true
     

@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ColonyDetail: View {
     @Binding var colony: Colony
+    
+    init(colony: Binding<Colony>) {
+        _colony = colony
+    }
+    
     var body: some View {
         VStack {
             Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
@@ -19,9 +24,10 @@ struct ColonyDetail: View {
         }.navigationBarTitle(Text(self.colony.name))
     }
 }
-/*
+
 struct ColonyDetail_Previews: PreviewProvider {
+    @State static var colony = Data().colonies[0]
     static var previews: some View {
-        ColonyDetail(colony: Data().colonies[0])
+        ColonyDetail(colony: $colony)
     }
-}*/
+}
