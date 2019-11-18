@@ -26,18 +26,7 @@ struct GridView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                ForEach(0..<self.colony.size) { row in
-                    HStack(spacing: 0) {
-                        ForEach(0..<self.colony.size) { col in
-                            RoundedRectangle(cornerRadius: self.calculator.cellSize(geometry) / 4)
-                                .frame(width: self.calculator.cellSize(geometry), height: self.calculator.cellSize(geometry))
-                                .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? self.aliveCellColor : self.deadCellColor)
-                                .padding(self.calculator.cellPadding / 2)
-                        }
-                    }
-                }
-            }
+            Grid(colony: self.colony, geometry: geometry)
             .drawingGroup()
             .gesture(DragGesture(minimumDistance: 0).onChanged{ value in
                 if self.start {

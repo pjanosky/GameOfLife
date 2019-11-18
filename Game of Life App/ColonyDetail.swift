@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColonyDetail: View {
-    @State var colony = Data().colonies[0]
+    @Binding var colony: Colony
     var body: some View {
         VStack {
             Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
@@ -19,9 +19,9 @@ struct ColonyDetail: View {
         }.navigationBarTitle(Text(self.colony.name))
     }
 }
-
+/*
 struct ColonyDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ColonyDetail()
+        ColonyDetail(colony: Data().colonies[0])
     }
-}
+}*/
