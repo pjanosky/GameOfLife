@@ -15,9 +15,9 @@ struct Grid: View {
     let aliveCellColor = Color.accentColor
     let geometry: GeometryProxy
     
-    init(colony: Colony, geometry: GeometryProxy) {
+    init(colony: Colony, geometry: GeometryProxy, cellPadding: CGFloat) {
         self.colony = colony
-        calculator = GridCalculator(colonySize: CGFloat(colony.size))
+        calculator = GridCalculator(colonySize: colony.size, cellPadding: cellPadding, geometry: geometry)
         self.geometry = geometry
     }
         
@@ -26,8 +26,8 @@ struct Grid: View {
             ForEach(0..<self.colony.size) { row in
                 HStack(spacing: 0) {
                     ForEach(0..<self.colony.size) { col in
-                        RoundedRectangle(cornerRadius: self.calculator.cellSize(self.geometry) / 4)
-                            .frame(width: self.calculator.cellSize(self.geometry), height: self.calculator.cellSize(self.geometry))
+                        RoundedRectangle(cornerRadius: self.calculator.cellSize() / 4)
+                            .frame(width: self.calculator.cellSize(), height: self.calculator.cellSize())
                             .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? self.aliveCellColor : self.deadCellColor)
                             .padding(self.calculator.cellPadding / 2)
                     }

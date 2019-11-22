@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct ColonyPreview: View {
-    @Binding var colony: Colony
+    var colony: Colony
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("\(colony.name)").font(.headline)
-            Text("Generation \(colony.generationNumber)")
-            GeometryReader { geometry in
-                Grid(colony: self.colony, geometry: geometry)
-            }
+                .font(.headline)
+            Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
+//            GeometryReader { geometry in
+//                Grid(colony: self.colony, geometry: geometry, cellPadding: 0.5)
+//            }.frame(height: 250)
         }.padding(.leading, 10).padding(.trailing, 10)
     }
 }
 
 struct ColonyPreview_Previews: PreviewProvider {
-    @State static var colony = Data().colonies[0]
     static var previews: some View {
-        ColonyPreview(colony: $colony)
+        ColonyPreview(colony: Data().colonies[0])
     }
 }

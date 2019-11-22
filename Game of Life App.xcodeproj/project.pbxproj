@@ -120,13 +120,13 @@
 				8E5C09052382033000A777B1 /* AppDelegate.swift */,
 				8E5C09072382033000A777B1 /* SceneDelegate.swift */,
 				8E5C09092382033000A777B1 /* ContentView.swift */,
-				D0F647F32382077400BD113C /* ColonyDetail.swift */,
-				D0F647F62382077400BD113C /* GridView.swift */,
-				D0F647F52382077400BD113C /* ControlsView.swift */,
 				D0F647F42382077400BD113C /* Data.swift */,
 				8E5C094A2382089900A777B1 /* ColonyList.swift */,
-				8E5C094E238208CC00A777B1 /* Grid.swift */,
 				8E5C094C238208B400A777B1 /* ColonyPreview.swift */,
+				D0F647F32382077400BD113C /* ColonyDetail.swift */,
+				D0F647F52382077400BD113C /* ControlsView.swift */,
+				D0F647F62382077400BD113C /* GridView.swift */,
+				8E5C094E238208CC00A777B1 /* Grid.swift */,
 				D0F647F22382074700BD113C /* Game Code */,
 				8E5C090B2382033400A777B1 /* Assets.xcassets */,
 				8E5C09102382033400A777B1 /* LaunchScreen.storyboard */,
@@ -480,7 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Game of Life App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z89X7W53TL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Game of Life App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
@@ -501,7 +501,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Game of Life App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z89X7W53TL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Game of Life App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;

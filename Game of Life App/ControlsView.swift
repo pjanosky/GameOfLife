@@ -13,10 +13,15 @@ struct ControlsView: View {
     @State var speed = 1.0
     @State var numGenerations = 1
     @State var wrapping = false
-    @State var playing = false
-    @State var timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in }
+    @EnvironmentObject var evolveTimer: EvolveTimer
     var formatter: NumberFormatter
     let backgroundColor = Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
+    
+    var newTimer: Timer {
+        Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
+            self.evolve()
+        }
+    }
     
     init(colony: Binding<Colony>) {
         _colony = colony
@@ -51,7 +56,7 @@ struct ControlsView: View {
                     Button(action: {
                         self.toggleTimer()}
                     ) {
-                        Image(systemName: self.playing ? "pause.circle" : "play.circle")
+                        Image(systemName: self.evolveTimer.timer.isValid ? "pause.circle" : "play.circle")
                             .resizable()
                             .frame(width: 45, height: 45)
                     }
@@ -61,7 +66,11 @@ struct ControlsView: View {
                         Text("\(formatter.string(from: NSNumber(value: self.speed))!)s")
                     }
                 
-                    Slider(value: self.$speed, in: 0.1...5, step: 0.1, onEditingChanged: {_ in self.resetTimer()})
+                    Slider(value: self.$speed, in: 0.1...5, step: 0.1, onEditingChanged: {_ in
+                        self.evolveTimer.timer = Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
+                            self.evolve()
+                        }
+                    })
                 }
             }
             .padding(.horizontal, 10)
@@ -70,23 +79,17 @@ struct ControlsView: View {
                 .frame(height: 60)
                 .foregroundColor(backgroundColor)
             )
+        }.onDisappear {
+            self.evolveTimer.timer.invalidate()
         }
     }
     
     func toggleTimer() {
-        self.playing.toggle()
-        if playing {
+        if evolveTimer.timer.isValid {
+            evolveTimer.timer.invalidate()
+        } else {
             evolve()
-        }
-        resetTimer()
-    }
-    
-    func resetTimer() {
-        self.timer.invalidate()
-        if playing {
-            self.timer = Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
-                self.evolve()
-            }
+            evolveTimer.timer = newTimer
         }
     }
     
@@ -112,4 +115,8 @@ struct ControlsView_Previews: PreviewProvider {
     static var previews: some View {
         ControlsView(colony: self.$colony)
     }
+}
+
+class EvolveTimer: ObservableObject {
+    @Published var timer = Timer.scheduledTimer(withTimeInterval: 0, repeats: false) {_ in }
 }

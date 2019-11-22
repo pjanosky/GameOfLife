@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cell: CustomStringConvertible, Hashable {
+struct Cell: CustomStringConvertible, Hashable, Codable {
     let row: Int
     let col: Int
     

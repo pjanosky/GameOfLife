@@ -10,41 +10,37 @@ import SwiftUI
 
 struct ColonyList: View {
     @ObservedObject var data = Data()
-    @State var colonyType: ColonyType = .colony
-    @State var colonySelected = false
-    var selectedColonies : [Colony] {
-        data.colonies.filter{$0.type.rawValue == self.colonyType.rawValue}
-    }
+    @State var selection: ColonyType = .colony
     
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                List {
-                    Picker(selection: self.$colonyType, label: Text("Type")) {
+                VStack {
+                    Picker(selection: self.$selection, label: Text("Type")) {
                         ForEach(ColonyType.allCases) { type in
-                            Text(type.rawValue).tag(type)
+                            Text(String(describing: type)).tag(type)
                         }
-                    }.pickerStyle(SegmentedPickerStyle()).disabled(!self.colonySelected)
+                    }.pickerStyle(SegmentedPickerStyle())
                     
-                    ForEach(0..<self.data.colonies.count) { index in
-                        if self.data.colonies[index].type.rawValue == self.colonyType.rawValue {
-                            NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
-                                .onAppear {
-                                    self.colonySelected = true
-                                    if self.colonyType == .colony {
-                                        self.data.currentColony = index
-                                    }
-                                    if self.colonyType == .template {
-                                        self.data.colonies[self.data.currentColony].cells = self.data.colonies[index].livingCells()
-                                    }
+                    if self.selection == .colony {
+                        List(0..<self.data.colonies.count) { index in
+                            NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[index]).onAppear {
+                                self.data.currentColony = index
                             }) {
-                                ColonyPreview(colony: self.$data.colonies[index])}
+                                ColonyPreview(colony: self.data.colonies[index])}
                         }
-                    }.frame(height: geometry.size.width)
-
+                    } else {
+                        List(0..<self.data.templates.count) { index in
+                            Button(action: {
+                                self.data.templates[self.data.currentColony].setColonyFromCells(cells: self.data.templates[index].cells)
+                            }) {
+                                ColonyPreview(colony: self.data.templates[index])
+                            }
+                        }
+                    }
                 }
             }
-            .navigationBarTitle("Menu")
+            .navigationBarTitle(String(describing: self.selection))
         }
     }
 }
@@ -54,5 +50,4 @@ struct ColonyList_Previews: PreviewProvider {
         ColonyList()
     }
 }
-
 
