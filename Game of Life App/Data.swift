@@ -7,10 +7,16 @@
 
 import Foundation
 
-class Data: ObservableObject {
+class Data: ObservableObject, Codable {
     @Published var colonies: [Colony] = [Colony(name: "Colony 1", size: 60), Colony(name: "Colony 2", size: 60)]
     @Published var templates: [Colony] = [Colony(name: "Template 1", size: 60), Colony(name: "Template 2", size: 60)]
     @Published var currentColony = 0
+    
+    static var nextID = 0
+    static var nextColonyID: Int {
+        nextID += 1
+        return nextID
+    }
     
     init() {
         colonies[0].setCellAlive(Cell(10, 2))
@@ -20,32 +26,12 @@ class Data: ObservableObject {
         templates[1].setCellAlive(Cell(30, 40))
     }
     
-    static var nextID = 0
-    static var nextColonyID: Int {
-        nextID += 1
-        return nextID
-    }
-}
-
-
-class DataSaver: Codable {
-    var colonies: [Colony]
-    var templates: [Colony]
-    var currentColony: Int
-    var nextID: Int
-    
-    init(colonies: [Colony], templates: [Colony], currentColony: Int, nextID: Int) {
-        self.colonies = colonies
-        self.templates = templates
-        self.currentColony = currentColony
-        self.nextID = nextID
-    }
     
     enum CodingKeys: String, CodingKey {
         case colonies
         case templates
-        case currentColony
-        case nextID
+        case currentColony = "current_colony"
+        case nextID = "next_colony_id"
     }
     
     required init(from decoder: Decoder) throws {
@@ -53,7 +39,7 @@ class DataSaver: Codable {
         colonies = try container.decode([Colony].self, forKey: .colonies)
         templates = try container.decode([Colony].self, forKey: .templates)
         currentColony = try container.decode(Int.self, forKey: .currentColony)
-        nextID = try container.decode(Int.self, forKey: .nextID)
+        Data.nextID = try container.decode(Int.self, forKey: .nextID)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -64,31 +50,23 @@ class DataSaver: Codable {
         try container.encode(Data.nextID, forKey: .nextID)
     }
     
-    static func save(data: Data, as pathComponent: String) {
-        let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(pathComponent)
-        let dataSaver = DataSaver(colonies: data.colonies, templates: data.templates, currentColony: data.currentColony, nextID: Data.nextID)
+    func save(as fileName: String) {
+        let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName).appendingPathExtension("json")
         do {
-            let data = try JSONEncoder().encode(dataSaver)
+            let data = try JSONEncoder().encode(self)
             try data.write(to: url)
         } catch {
             print(error)
         }
     }
     
-    static func load(from pathComponent: String) -> Data? {
-        let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(pathComponent)
+    static func load(fromFile fileName: String) -> Data? {
+        let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName).appendingPathExtension("json")
         do {
-            let loadedData = try JSONDecoder().decode(DataSaver.self, from: Foundation.Data(contentsOf: url))
-            let data = Data()
-            data.colonies = loadedData.colonies
-            data.templates = loadedData.templates
-            data.currentColony = loadedData.currentColony
-            Data.nextID = loadedData.nextID
-            return data
+            let data = try Foundation.Data(contentsOf: url)
+            return try JSONDecoder().decode(Data.self, from: data)
         } catch {
-            print(error)
             return nil
         }
     }
-    
 }

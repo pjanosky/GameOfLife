@@ -36,11 +36,15 @@ struct Colony: CustomStringConvertible, Identifiable, Codable {
     }
 
     mutating func setCellAlive(_ cell: Cell) {
-        cells.insert(cell)
+        if isGoodCell(cell) {
+            cells.insert(cell)
+        }
     }
 
     mutating func setCellDead(_ cell: Cell) {
-        cells.remove(cell)
+        if isGoodCell(cell) {
+            cells.remove(cell)
+        }
     }
 
     mutating func toggleCell(_ cell: Cell) {
@@ -136,12 +140,10 @@ struct Colony: CustomStringConvertible, Identifiable, Codable {
     }
 }
 
-enum ColonyType: CaseIterable, Identifiable, Equatable, CustomStringConvertible {
+enum ColonyType: Int, CaseIterable, Identifiable, Equatable, CustomStringConvertible {
     case colony, template
     
-    var id: String {
-        return String(describing: self)
-    }
+    var id: Int { self.rawValue }
     
     var description: String {
         switch self {

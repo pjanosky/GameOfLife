@@ -15,13 +15,17 @@ struct ColonyDetail: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
-                .font(.headline)
-            GridView(colony: self.$colony)
-            ControlsView(colony: self.$colony)
-                .padding()
-        }.navigationBarTitle(Text(self.colony.name))
+        GeometryReader { geometry in
+            VStack(alignment: .center) {
+                GridView(colony: self.$colony)
+                    .padding(.horizontal)
+                    .padding(.top)
+
+                Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
+                ControlsView(colony: self.$colony, width: geometry.size.width)
+                    .padding()
+            }.navigationBarTitle(Text(self.colony.name), displayMode: .inline)
+        }
     }
 }
 

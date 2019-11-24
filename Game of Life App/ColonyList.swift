@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct ColonyList: View {
-    @ObservedObject var data = Data()
+    @ObservedObject var data: Data
     @State var selection: ColonyType = .colony
+    @State var isPresented = true
     
     var body: some View {
         NavigationView {
@@ -46,8 +47,15 @@ struct ColonyList: View {
 }
 
 struct ColonyList_Previews: PreviewProvider {
+    static var data = Data()
+    init() {
+        if let loadedData = Data.load(fromFile: "data") {
+            ColonyList_Previews.data = loadedData
+        }
+    }
+    
     static var previews: some View {
-        ColonyList()
+        ColonyList(data: ColonyList_Previews.data)
     }
 }
 

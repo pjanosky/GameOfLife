@@ -9,16 +9,14 @@
 import SwiftUI
 
 struct Grid: View {
+    @Binding var colony: Colony
+    @State var settingAlive = true
+    @State var startingGesture = true
     var calculator: GridCalculator
-    var colony: Colony
-    let deadCellColor = Color(#colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1))
-    let aliveCellColor = Color.accentColor
-    let geometry: GeometryProxy
     
-    init(colony: Colony, geometry: GeometryProxy, cellPadding: CGFloat) {
-        self.colony = colony
-        calculator = GridCalculator(colonySize: colony.size, cellPadding: cellPadding, geometry: geometry)
-        self.geometry = geometry
+    init(colony: Binding<Colony>, calculator: GridCalculator) {
+        _colony = colony
+        self.calculator = calculator
     }
         
     var body: some View {
@@ -26,13 +24,37 @@ struct Grid: View {
             ForEach(0..<self.colony.size) { row in
                 HStack(spacing: 0) {
                     ForEach(0..<self.colony.size) { col in
-                        RoundedRectangle(cornerRadius: self.calculator.cellSize() / 4)
-                            .frame(width: self.calculator.cellSize(), height: self.calculator.cellSize())
-                            .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? self.aliveCellColor : self.deadCellColor)
+                        RoundedRectangle(cornerRadius: self.calculator.cellSize / 4)
+                            .frame(width: self.calculator.cellSize, height: self.calculator.cellSize)
+                            .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? Color.accentColor : Color("DeadCellColor"))
                             .padding(self.calculator.cellPadding / 2)
                     }
                 }
             }
+        }
+        .drawingGroup()
+        .gesture(DragGesture(minimumDistance: 0.0)
+            .onChanged { value in
+                self.dragGestureChanged(value)
+            }.onEnded { _ in
+                self.startingGesture = true
+            }
+        )
+    }
+
+    func dragGestureChanged(_ value: DragGesture.Value) {
+        if self.startingGesture {
+            let startCell = self.calculator.getCellFrom(location: value.startLocation)
+            self.settingAlive = !self.colony.isCellAlive(startCell)
+            self.colony.toggleCell(startCell)
+            self.startingGesture = false
+        }
+        
+        let cell = self.calculator.getCellFrom(location: value.location)
+        if self.settingAlive {
+            self.colony.setCellAlive(cell)
+        } else {
+            self.colony.setCellDead(cell)
         }
     }
 }

@@ -13,9 +13,10 @@ struct ControlsView: View {
     @State var speed = 1.0
     @State var numGenerations = 1
     @State var wrapping = false
-    @EnvironmentObject var evolveTimer: EvolveTimer
+    @State var timer: Timer = Timer.scheduledTimer(withTimeInterval: 0, repeats: false, block: {_ in})
+    @State var running = false
+    var width: CGFloat
     var formatter: NumberFormatter
-    let backgroundColor = Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
     
     var newTimer: Timer {
         Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
@@ -23,8 +24,9 @@ struct ControlsView: View {
         }
     }
     
-    init(colony: Binding<Colony>) {
+    init(colony: Binding<Colony>, width: CGFloat) {
         _colony = colony
+        self.width = width
         
         formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -32,64 +34,85 @@ struct ControlsView: View {
         formatter.maximumFractionDigits = 1
     }
     
-    var body: some View {
-        HStack {
-            Group {
-                Toggle(isOn: self.$wrapping) {
-                    Text("Wrapping")
+    var controls: some View {
+        Group {
+            Toggle(isOn: self.$wrapping) {
+                Text("Wrapping")
                 }
-                .frame(width: 135)
-                
-                HStack {
-                    Button(action: {self.evolve(generations: self.numGenerations)}) {
-                        Image(systemName: "arrowshape.turn.up.right.circle")
-                            .resizable()
-                            .frame(width: 45, height: 45)
-                    }
-                    
-                    Stepper("\(self.numGenerations) \((self.numGenerations == 1) ? "Generation" : "Generations")", value: self.$numGenerations, in: 1...100)
-                        .frame(width: 210)
-                        .multilineTextAlignment(.center)
+            .frame(minWidth: 135)
+            .layoutPriority(-1)
+            
+            HStack {
+                Button(action: {self.evolve(generations: self.numGenerations)}) {
+                    Image(systemName: "arrowshape.turn.up.right.circle")
+                        .resizable()
+                        .frame(width: 45, height: 45)
                 }
                 
-                HStack {
-                    Button(action: {
-                        self.toggleTimer()}
-                    ) {
-                        Image(systemName: self.evolveTimer.timer.isValid ? "pause.circle" : "play.circle")
-                            .resizable()
-                            .frame(width: 45, height: 45)
-                    }
-                    
-                    VStack {
-                        Text("Speed")
-                        Text("\(formatter.string(from: NSNumber(value: self.speed))!)s")
-                    }
-                
-                    Slider(value: self.$speed, in: 0.1...5, step: 0.1, onEditingChanged: {_ in
-                        self.evolveTimer.timer = Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
-                            self.evolve()
-                        }
-                    })
-                }
+                Stepper("\(self.numGenerations) \((self.numGenerations == 1) ? "Generation" : "Generations")", value: self.$numGenerations, in: 1...100)
+                    .frame(minWidth: 210)
+                    .multilineTextAlignment(.center)
             }
-            .padding(.horizontal, 10)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                .frame(height: 60)
-                .foregroundColor(backgroundColor)
-            )
-        }.onDisappear {
-            self.evolveTimer.timer.invalidate()
+            
+            HStack {
+                Button(action: {
+                    self.toggleTimer()}
+                ) {
+                    Image(systemName: self.running ? "pause.circle" : "play.circle")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                }
+                
+                VStack {
+                    Text("Speed")
+                    Text("\(self.formatter.string(from: NSNumber(value: self.speed))!)s")
+                }
+            
+                Slider(value: self.$speed, in: 0.1...5, step: 0.1, onEditingChanged: {_ in
+                    if self.running {
+                        self.createNewTimer()
+                    }
+                })
+            }
+        }
+        .frame(height: 60)
+        .padding(.horizontal, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+            .foregroundColor(Color("ControlsBackgroundColor"))
+        ).onDisappear {
+            self.timer.invalidate()
         }
     }
     
+    var body: some View {
+        Group {
+            if self.width > 670 {
+                HStack {
+                    self.controls
+                }.frame(height: 60)
+            } else {
+                VStack {
+                    self.controls
+                }.frame(height: 200)
+            }
+        }.layoutPriority(-1)
+    }
+    
     func toggleTimer() {
-        if evolveTimer.timer.isValid {
-            evolveTimer.timer.invalidate()
+        if running {
+            timer.invalidate()
         } else {
             evolve()
-            evolveTimer.timer = newTimer
+            createNewTimer()
+        }
+        running.toggle()
+    }
+    
+    func createNewTimer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: self.speed, repeats: true) { t in
+            self.evolve()
         }
     }
     
@@ -113,10 +136,8 @@ struct ControlsView: View {
 struct ControlsView_Previews: PreviewProvider {
     @State static var colony = Data().colonies[0]
     static var previews: some View {
-        ControlsView(colony: self.$colony)
+        GeometryReader { geometry in
+            ControlsView(colony: self.$colony, width: geometry.size.width)
+        }
     }
-}
-
-class EvolveTimer: ObservableObject {
-    @Published var timer = Timer.scheduledTimer(withTimeInterval: 0, repeats: false) {_ in }
 }
