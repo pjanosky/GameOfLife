@@ -13,7 +13,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable {
     private (set) var size: Int
 
     private (set) var generationNumber = 0
-    private (set) var cells: Set<Cell> = Set<Cell>()
+    var cells: Set<Cell> = Set<Cell>()
     private var wrapping = true
     var id = Data.nextColonyID
 

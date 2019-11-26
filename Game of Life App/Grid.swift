@@ -12,6 +12,8 @@ struct Grid: View {
     @Binding var colony: Colony
     @State var settingAlive = true
     @State var startingGesture = true
+    @State var scale: CGFloat = 1.0
+    @State var offset: CGSize = .zero
     var calculator: GridCalculator
     
     init(colony: Binding<Colony>, calculator: GridCalculator) {
@@ -28,6 +30,9 @@ struct Grid: View {
                             .frame(width: self.calculator.cellSize, height: self.calculator.cellSize)
                             .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? Color.accentColor : Color("DeadCellColor"))
                             .padding(self.calculator.cellPadding / 2)
+                            .highPriorityGesture(TapGesture().onEnded{
+                                self.colony.toggleCell(Cell(row, col))
+                            })
                     }
                 }
             }
@@ -39,7 +44,18 @@ struct Grid: View {
             }.onEnded { _ in
                 self.startingGesture = true
             }
-        )
+        ).gesture(MagnificationGesture()
+            .onChanged { value in
+                self.scale = max(self.scale * value, 1.0)
+            }
+        ).highPriorityGesture(TapGesture(count: 2).simultaneously(with: DragGesture()
+            .onChanged { value in
+                self.offset.width += value.translation.width
+                self.offset.height += value.translation.height
+            }
+        ))
+        .scaleEffect(self.scale)
+        .offset(self.offset)
     }
 
     func dragGestureChanged(_ value: DragGesture.Value) {
@@ -57,6 +73,7 @@ struct Grid: View {
             self.colony.setCellDead(cell)
         }
     }
+    
 }
 
 /*struct Grid_Previews: PreviewProvider {

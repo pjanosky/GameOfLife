@@ -15,6 +15,8 @@
 		8E5C094B2382089900A777B1 /* ColonyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094A2382089900A777B1 /* ColonyList.swift */; };
 		8E5C094D238208B400A777B1 /* ColonyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094C238208B400A777B1 /* ColonyPreview.swift */; };
 		8E5C094F238208CC00A777B1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094E238208CC00A777B1 /* Grid.swift */; };
+		D05D360B238D807300D1BFC4 /* AddColony.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D360A238D807300D1BFC4 /* AddColony.swift */; };
+		D05D360D238D81B000D1BFC4 /* TemplatesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */; };
 		D0F647EF2382070E00BD113C /* Colony.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647EC2382070E00BD113C /* Colony.swift */; };
 		D0F647F12382070E00BD113C /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647EE2382070E00BD113C /* Cell.swift */; };
 		D0F647F72382077400BD113C /* ColonyDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F647F32382077400BD113C /* ColonyDetail.swift */; };
@@ -38,6 +40,8 @@
 		8E5C094A2382089900A777B1 /* ColonyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColonyList.swift; sourceTree = "<group>"; };
 		8E5C094C238208B400A777B1 /* ColonyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColonyPreview.swift; sourceTree = "<group>"; };
 		8E5C094E238208CC00A777B1 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		D05D360A238D807300D1BFC4 /* AddColony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddColony.swift; sourceTree = "<group>"; };
+		D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesModal.swift; sourceTree = "<group>"; };
 		D0F647EC2382070E00BD113C /* Colony.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colony.swift; sourceTree = "<group>"; };
 		D0F647EE2382070E00BD113C /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		D0F647F32382077400BD113C /* ColonyDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColonyDetail.swift; sourceTree = "<group>"; };
@@ -84,9 +88,11 @@
 				8E5C094A2382089900A777B1 /* ColonyList.swift */,
 				8E5C094C238208B400A777B1 /* ColonyPreview.swift */,
 				D0F647F32382077400BD113C /* ColonyDetail.swift */,
+				D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */,
 				D0F647F52382077400BD113C /* ControlsView.swift */,
 				D0F647F62382077400BD113C /* GridView.swift */,
 				8E5C094E238208CC00A777B1 /* Grid.swift */,
+				D05D360A238D807300D1BFC4 /* AddColony.swift */,
 				D0F647F22382074700BD113C /* Game Code */,
 				8E5C090B2382033400A777B1 /* Assets.xcassets */,
 				8E5C09102382033400A777B1 /* LaunchScreen.storyboard */,
@@ -202,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05D360D238D81B000D1BFC4 /* TemplatesModal.swift in Sources */,
 				D0F647F82382077400BD113C /* Data.swift in Sources */,
 				8E5C09062382033000A777B1 /* AppDelegate.swift in Sources */,
 				8E5C09082382033000A777B1 /* SceneDelegate.swift in Sources */,
@@ -213,6 +220,7 @@
 				D0F647FA2382077400BD113C /* GridView.swift in Sources */,
 				D0F647F12382070E00BD113C /* Cell.swift in Sources */,
 				8E5C094F238208CC00A777B1 /* Grid.swift in Sources */,
+				D05D360B238D807300D1BFC4 /* AddColony.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
