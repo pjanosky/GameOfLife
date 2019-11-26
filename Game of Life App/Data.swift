@@ -7,6 +7,9 @@
 
 import Foundation
 
+//This is a comment
+//This is another comment
+
 class Data: ObservableObject, Codable {
     @Published var colonies: [Colony] = [Colony(name: "Colony 1", size: 25), Colony(name: "Colony 2", size: 25)]
     @Published var templates: [Colony] = [Colony(name: "Template 1", size: 25), Colony(name: "Template 2", size: 25)]
