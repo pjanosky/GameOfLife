@@ -33,7 +33,7 @@ struct ColonyList: View {
                                         self.data.currentColony = index
                                     }
                                 ) {ColonyPreview(colony: self.data.colonies[index])}
-                            }.frame(height: geometry.size.width)
+                            }
                         }
                     }
                     else {
@@ -44,7 +44,7 @@ struct ColonyList: View {
                                         self.data.colonies[self.data.currentColony].cells = self.data.templates[index].livingCells()
                                     }
                                 ) {ColonyPreview(colony: self.data.templates[index])}
-                            }.frame(height: geometry.size.width)
+                            }
                         }
                     }
                 }

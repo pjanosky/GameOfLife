@@ -17,33 +17,37 @@ struct ColonyDetail: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    var copy = Colony(name: "Untitled", size: 60)
-                    copy.cells = self.colony.livingCells()
-                    self.data.templates.append(copy)
-                    print("got here")
-                    print(self.data.templates.count)
-                }) {
-                    Text("Save as template")
+        GeometryReader { geometry in
+            VStack {
+                HStack {
+                    Button(action: {
+                        var copy = Colony(name: "Untitled", size: 60)
+                        copy.cells = self.colony.livingCells()
+                        self.data.templates.append(copy)
+                        print("got here")
+                        print(self.data.templates.count)
+                    }) {
+                        Text("Save as template")
+                    }
+                    
+                    Button(action: {
+                        self.showTemplatesModal = true
+                    }) {
+                        Text("Select template")
+                    }.sheet(isPresented: self.$showTemplatesModal) {
+                        TemplatesModal(colony: self.$colony)
+                    }
                 }
                 
-                Button(action: {
-                    self.showTemplatesModal = true
-                }) {
-                    Text("Select template")
-                }.sheet(isPresented: $showTemplatesModal) {
-                    TemplatesModal(colony: self.$colony)
-                }
+                TextField("\(self.colony.name)", text: self.$colony.name)
+                    .font(.title)
+                    .multilineTextAlignment(.center)
+                Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
+                    .font(.headline)
+                GridView(colony: self.$colony)
+                ControlsView(colony: self.$colony, width: geometry.size.width)
+                .padding()
             }
-            
-            TextField("\(self.colony.name)", text: self.$colony.name)
-                .font(.title)
-                .multilineTextAlignment(.center)
-            Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
-                .font(.headline)
-            GridView(colony: self.$colony)
         }
     }
 }

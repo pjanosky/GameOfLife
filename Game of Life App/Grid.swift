@@ -44,18 +44,7 @@ struct Grid: View {
             }.onEnded { _ in
                 self.startingGesture = true
             }
-        ).gesture(MagnificationGesture()
-            .onChanged { value in
-                self.scale = max(self.scale * value, 1.0)
-            }
-        ).highPriorityGesture(TapGesture(count: 2).simultaneously(with: DragGesture()
-            .onChanged { value in
-                self.offset.width += value.translation.width
-                self.offset.height += value.translation.height
-            }
-        ))
-        .scaleEffect(self.scale)
-        .offset(self.offset)
+        )
     }
 
     func dragGestureChanged(_ value: DragGesture.Value) {
