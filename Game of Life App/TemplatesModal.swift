@@ -12,39 +12,61 @@ import SwiftUI
 import Combine
  
 struct TemplatesModal: View {
+    @ObservedObject var data: Data
     @Binding var colony: Colony
-    @ObservedObject var data = Data()
-    @Environment(\.presentationMode) var presentationMode
-    @State private var templateSelected: Colony? = nil
+    @Binding var showing: Bool
+    @State var selectedTemplate: Colony?
     
     var body: some View {
-        var templateArray: [[Colony]] = []
-        _ = self.data.templates.publisher
-            .collect(2)
-            .collect()
-            .sink(receiveValue: {templateArray = $0})
-        
-        return VStack {
+        VStack {
+            HStack(alignment: .firstTextBaseline) {
+                Button(action: {
+                    self.showing = false
+                }) {
+                    Text("Cancel")
+                }
+                
+                Spacer()
+                Text("Tempates")
+                    .font(.title)
+                Spacer()
+                
+                Button(action: {
+                    self.colony.setColonyFromCells(cells: self.selectedTemplate!.livingCells)
+                    self.showing = false
+                }) {
+                    Text("Apply")
+                }.disabled(self.selectedTemplate == nil)
+            }.padding()
+
             Button(action: {
-                self.colony.cells = self.templateSelected!.livingCells()
-                self.presentationMode.wrappedValue.dismiss()
+                var newTempate = Colony(name: "Untitled", size: 60)
+                newTempate.setColonyFromCells(cells: self.colony.livingCells)
+                self.data.templates.append(newTempate)
             }) {
-                Text("Done")
-            }.disabled(self.templateSelected == nil)
+                Text("Save Current Colony")
+            }
             
-            ForEach(0..<templateArray.count, id: \.self) { row in
-                HStack {
-                    ForEach(templateArray[row]) { template in
-                        Button(action: {
-                            self.templateSelected = template
-                        }) {
-                            ColonyPreview(colony: template)
-                        }
+            List(self.data.templates) { template in
+                HStack(spacing: 0) {
+                    if self.selectedTemplate != nil && template == self.selectedTemplate! {
+                        Image(systemName: "checkmark")
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                    } else {
+                        Spacer()
+                            .frame(width: 30, height: 30)
                     }
+                    
+                    ColonyPreview(colony: template)
+                    Spacer()
+                }
+                .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .black)
+                .onTapGesture {
+                    self.selectedTemplate = template
                 }
             }
-            Spacer()
-        }.padding(.leading, 10).padding(.trailing, 10)
+        }
     }
 }
 

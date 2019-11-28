@@ -8,23 +8,23 @@
 
 import SwiftUI
 
-struct AddColony: View {
-    @ObservedObject var data = Data()
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    var body: some View {
-        VStack {
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) { Text("Done") }
-            ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
-        }
-    }
-}
-
-
-struct AddColony_Previews: PreviewProvider {
-    static var previews: some View {
-        AddColony()
-    }
-}
+//struct AddColony: View {
+//    @ObservedObject var data = Data()
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+//
+//    var body: some View {
+//        VStack {
+//            Button(action: {
+//                self.presentationMode.wrappedValue.dismiss()
+//            }) { Text("Done") }
+//            ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
+//        }
+//    }
+//}
+//
+//
+//struct AddColony_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddColony()
+//    }
+//}

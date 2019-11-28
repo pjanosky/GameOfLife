@@ -27,7 +27,7 @@ struct ColonyList: View {
                     if self.colonyType == .colony {
                         List {
                             ForEach(0..<self.data.colonies.count, id: \.self) { index in
-                                NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[index])
+                                NavigationLink(destination: ColonyDetail(data: self.data, colony: self.$data.colonies[index])
                                     .onAppear {
                                         self.colonySelected = true
                                         self.data.currentColony = index
@@ -39,9 +39,9 @@ struct ColonyList: View {
                     else {
                         List {
                             ForEach(0..<self.data.templates.count, id: \.self) { index in
-                                NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
+                                NavigationLink(destination: ColonyDetail(data: self.data, colony: self.$data.colonies[self.data.currentColony])
                                     .onAppear {
-                                        self.data.colonies[self.data.currentColony].cells = self.data.templates[index].livingCells()
+                                        self.data.colonies[self.data.currentColony].cells = self.data.templates[index].livingCells
                                     }
                                 ) {ColonyPreview(colony: self.data.templates[index])}
                             }
@@ -59,11 +59,9 @@ struct ColonyList: View {
                 }
                 ) {
                     Text("+").font(.largeTitle)
-                }.sheet(isPresented: $showTemplatesModal) {
-                    TemplatesModal(colony: self.$data.colonies[self.data.currentColony])
                 }
              )
-           ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
+            ColonyDetail(data: self.data, colony: self.$data.colonies[self.data.currentColony])
         }
     }
 }
@@ -78,7 +76,7 @@ struct ColonyList_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        ColonyList(data: ColonyList_Previews.data)
+        ColonyList(data: Data())
     }
 }
 

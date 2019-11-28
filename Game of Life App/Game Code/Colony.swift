@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Colony: CustomStringConvertible, Identifiable, Codable {
+struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
     var name: String
     private (set) var size: Int
 
@@ -63,8 +63,8 @@ struct Colony: CustomStringConvertible, Identifiable, Codable {
         return cells.count
     }
 
-    func livingCells() -> Set<Cell> {
-        return cells
+    var livingCells: Set<Cell> {
+        cells
     }
 
     func w(_ n: Int) -> Int {

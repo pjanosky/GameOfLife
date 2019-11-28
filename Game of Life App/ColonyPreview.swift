@@ -19,7 +19,7 @@ struct ColonyPreview: View {
 //            GeometryReader { geometry in
 //                Grid(colony: self.colony, geometry: geometry, cellPadding: 0.5)
 //            }.frame(height: 250)
-        }.padding(.leading, 10).padding(.trailing, 10)
+        }.padding(5)
     }
 }
 
