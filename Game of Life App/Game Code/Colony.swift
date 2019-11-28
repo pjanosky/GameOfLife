@@ -13,7 +13,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
     private (set) var size: Int
 
     private (set) var generationNumber = 0
-    var cells: Set<Cell> = Set<Cell>()
+    private var cells: Set<Cell> = Set<Cell>()
     private var wrapping = true
     var id = Data.nextColonyID
 
@@ -67,7 +67,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         cells
     }
 
-    func w(_ n: Int) -> Int {
+    private func w(_ n: Int) -> Int {
         return (n + size) % size
     }
 
@@ -75,7 +75,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         return (cell.row >= 0) && (cell.row < size) && (cell.col >= 0) && (cell.col < size)
     }
 
-    func cellsToCheck(cell: Cell) -> Set<Cell> {
+    private func cellsToCheck(cell: Cell) -> Set<Cell> {
         var result = Set<Cell>()
         for offset in Self.offsets {
             let offsetCoordinate = Cell(cell.row + offset.row, cell.col + offset.col)
@@ -86,7 +86,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         return result
     }
 
-    func cellsToCheckWrap(cell: Cell) -> Set<Cell> {
+    private func cellsToCheckWrap(cell: Cell) -> Set<Cell> {
         var result = Set<Cell>()
         for offset in Self.offsets {
             result.insert(Cell(w(cell.row + offset.row), w(cell.col + offset.col)))
@@ -94,7 +94,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         return result
     }
 
-    func countNeighbors(cell: Cell) -> Int {
+    private func countNeighbors(cell: Cell) -> Int {
         var count = 0
         let neighbors = wrapping ? cellsToCheckWrap(cell: cell) : cellsToCheck(cell: cell)
         for cell in neighbors {
@@ -105,7 +105,7 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         return count
     }
 
-    func cellSurvives(cell: Cell) -> Bool {
+    private func cellSurvives(cell: Cell) -> Bool {
         let livingNeighbors = countNeighbors(cell: cell)
         if livingNeighbors == 3 {return true}
         if livingNeighbors < 2 || livingNeighbors > 3 {return false}
@@ -137,18 +137,5 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
             result += "\n"
         }
         return "generation #\(generationNumber)\n\(result)"
-    }
-}
-
-enum ColonyType: Int, CaseIterable, Identifiable, Equatable, CustomStringConvertible {
-    case colony, template
-    
-    var id: Int { self.rawValue }
-    
-    var description: String {
-        switch self {
-        case .colony: return "Colonies"
-        case .template: return "Templates"
-        }
     }
 }

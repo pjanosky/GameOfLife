@@ -68,7 +68,7 @@ struct ControlsView: View {
                     Text("\(self.formatter.string(from: NSNumber(value: self.speed))!)s")
                 }
             
-                Slider(value: self.$speed, in: 0.1...5, step: 0.1, onEditingChanged: {_ in
+                Slider(value: self.$speed, in: 0.09...3.01, step: 0.1, onEditingChanged: {_ in
                     if self.running {
                         self.createNewTimer()
                     }

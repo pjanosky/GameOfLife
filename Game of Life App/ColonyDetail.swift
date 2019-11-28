@@ -14,12 +14,13 @@ struct ColonyDetail: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
+            VStack(spacing: 0) {
                 HStack() {
                     Spacer().frame(width: 100)
                     Spacer()
+                    
                     TextField("\(self.colony.name)", text: self.$colony.name)
-                        .font(.title)
+                        .font(.largeTitle)
                         .multilineTextAlignment(.center)
                     
                     Spacer()
@@ -32,11 +33,12 @@ struct ColonyDetail: View {
                         TemplatesModal(colony: self.$colony, showing: self.$showTemplatesModal)
                             .environmentObject(self.data)
                     }.frame(width: 100)
-                }.padding()
+                }.padding(.horizontal)
                 
-                GridView(colony: self.$colony)
                 Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
-                .font(.headline)
+                    .font(.headline)
+                
+                GridView(colony: self.$colony).padding(15)
                 ControlsView(colony: self.$colony, width: geometry.size.width)
                     .padding(.horizontal)
             }

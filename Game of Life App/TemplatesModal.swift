@@ -40,33 +40,39 @@ struct TemplatesModal: View {
             }.padding()
 
             Button(action: {
-                var newTempate = Colony(name: "Untitled", size: 60)
+                var newTempate = Colony(name: self.colony.name, size: 60)
                 newTempate.setColonyFromCells(cells: self.colony.livingCells)
                 self.data.templates.append(newTempate)
             }) {
                 Text("Save Current Colony")
             }
             
-            List(self.data.templates) { template in
-                HStack(spacing: 0) {
-                    if self.selectedTemplate != nil && template == self.selectedTemplate! {
-                        Image(systemName: "checkmark")
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                    } else {
+            List {
+                ForEach(self.data.templates) { template in
+                    HStack(spacing: 0) {
+                        if self.selectedTemplate != nil && template == self.selectedTemplate! {
+                            Image(systemName: "checkmark")
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                        } else {
+                            Spacer()
+                                .frame(width: 30, height: 30)
+                        }
+                        
+                        ColonyPreview(colony: template)
                         Spacer()
-                            .frame(width: 30, height: 30)
                     }
-                    
-                    ColonyPreview(colony: template)
-                    Spacer()
-                }
-                .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .black)
-                .onTapGesture {
-                    self.selectedTemplate = template
-                }
+                    .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .black)
+                    .onTapGesture {
+                        self.selectedTemplate = template
+                    }
+                }.onDelete(perform: self.deleteTemplate)
             }
         }
+    }
+    
+    func deleteTemplate(at offsets: IndexSet) {
+        self.data.templates.remove(atOffsets: offsets)
     }
 }
 
