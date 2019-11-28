@@ -12,8 +12,6 @@ struct Grid: View {
     @Binding var colony: Colony
     @State var settingAlive = true
     @State var startingGesture = true
-    @State var scale: CGFloat = 1.0
-    @State var offset: CGSize = .zero
     var calculator: GridCalculator
     var geometry: GeometryProxy
     
@@ -47,7 +45,7 @@ struct Grid: View {
                     path.addLine(to: CGPoint(x: offset, y: self.calculator.size))
                 }
             }
-            .stroke(Color.white, lineWidth: 2)
+            .stroke(Color("GridLineColor"), lineWidth: 2)
             
             ForEach(0..<self.colony.size) { row in
                 ForEach(0..<self.colony.size) { col in

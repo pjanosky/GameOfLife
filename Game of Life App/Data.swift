@@ -9,7 +9,7 @@ import Foundation
 
 
 class Data: ObservableObject, Codable {
-    @Published var colonies: [Colony] = [Colony(name: "Colony 1", size: 60), Colony(name: "Colony 2", size: 60), Colony(name: "Colony n", size: 25)]
+    @Published var colonies: [Colony] = [Colony(name: "Colony 1", size: 60), Colony(name: "Colony 2", size: 60)]
     @Published var templates: [Colony] = [Colony(name: "Template 1", size: 60), Colony(name: "Template 2", size: 60)]
     @Published var currentColony = 0
     

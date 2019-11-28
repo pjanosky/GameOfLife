@@ -13,7 +13,7 @@ struct ColonyPreview: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(colony.name)").font(.headline)
+            Text("\(colony.name)")
                 .font(.headline)
             Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
 //            GeometryReader { geometry in

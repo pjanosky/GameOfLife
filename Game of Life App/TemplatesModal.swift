@@ -59,10 +59,13 @@ struct TemplatesModal: View {
                                 .frame(width: 30, height: 30)
                         }
                         
-                        ColonyPreview(colony: template)
-                        Spacer()
+                        VStack(alignment: .leading) {
+                            Text("\(self.colony.name)")
+                                .font(.headline)
+                            Text("\(self.colony.numberLivingCells) Alive \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells")")
+                        }.padding(5)
                     }
-                    .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .black)
+                    .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .primary)
                     .onTapGesture {
                         self.selectedTemplate = template
                     }
