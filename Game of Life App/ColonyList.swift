@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ColonyList: View {
-    @ObservedObject var data: Data
+    @EnvironmentObject var data: Data
     @State private var colonyType: ColonyType = .colony
     @State private var colonySelected = false
     @State private var showTemplatesModal = false
@@ -27,7 +27,7 @@ struct ColonyList: View {
                     if self.colonyType == .colony {
                         List {
                             ForEach(0..<self.data.colonies.count, id: \.self) { index in
-                                NavigationLink(destination: ColonyDetail(data: self.data, colony: self.$data.colonies[index])
+                                NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[index])
                                     .onAppear {
                                         self.colonySelected = true
                                         self.data.currentColony = index
@@ -39,7 +39,7 @@ struct ColonyList: View {
                     else {
                         List {
                             ForEach(0..<self.data.templates.count, id: \.self) { index in
-                                NavigationLink(destination: ColonyDetail(data: self.data, colony: self.$data.colonies[self.data.currentColony])
+                                NavigationLink(destination: ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
                                     .onAppear {
                                         self.data.colonies[self.data.currentColony].cells = self.data.templates[index].livingCells
                                     }
@@ -61,7 +61,7 @@ struct ColonyList: View {
                     Text("+").font(.largeTitle)
                 }
              )
-            ColonyDetail(data: self.data, colony: self.$data.colonies[self.data.currentColony])
+            ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
         }
     }
 }
@@ -76,7 +76,7 @@ struct ColonyList_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        ColonyList(data: Data())
+        ColonyList()
     }
 }
 

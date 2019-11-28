@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColonyDetail: View {
-    @ObservedObject var data: Data
+    @EnvironmentObject var data: Data
     @Binding var colony: Colony
     @State private var showTemplatesModal = false
     
@@ -29,7 +29,8 @@ struct ColonyDetail: View {
                     }) {
                         Text("Templates")
                     }.sheet(isPresented: self.$showTemplatesModal) {
-                        TemplatesModal(data: self.data, colony: self.$colony, showing: self.$showTemplatesModal)
+                        TemplatesModal(colony: self.$colony, showing: self.$showTemplatesModal)
+                            .environmentObject(self.data)
                     }.frame(width: 100)
                 }.padding()
                 
@@ -47,6 +48,6 @@ struct ColonyDetail: View {
 struct ColonyDetail_Previews: PreviewProvider {
     @State static var colony = Data().colonies[0]
     static var previews: some View {
-        ColonyDetail(data: Data(), colony: $colony)
+        ColonyDetail(colony: $colony)
     }
 }

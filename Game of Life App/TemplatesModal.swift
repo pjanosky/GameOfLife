@@ -12,7 +12,7 @@ import SwiftUI
 import Combine
  
 struct TemplatesModal: View {
-    @ObservedObject var data: Data
+    @EnvironmentObject var data: Data
     @Binding var colony: Colony
     @Binding var showing: Bool
     @State var selectedTemplate: Colony?

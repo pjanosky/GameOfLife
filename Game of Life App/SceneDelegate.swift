@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         // "data" would then be passed into the ColonyList view below instead of created inside of the view
         
-        let contentView = ColonyList(data: self.data)
+        let contentView = ColonyList().environmentObject(self.data)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
