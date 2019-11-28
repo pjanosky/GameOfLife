@@ -15,36 +15,53 @@ struct Grid: View {
     @State var scale: CGFloat = 1.0
     @State var offset: CGSize = .zero
     var calculator: GridCalculator
+    var geometry: GeometryProxy
     
-    init(colony: Binding<Colony>, calculator: GridCalculator) {
+    init(colony: Binding<Colony>, calculator: GridCalculator, geometry: GeometryProxy) {
         _colony = colony
         self.calculator = calculator
+        self.geometry = geometry
     }
         
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack(alignment: .topLeading) {
+            RoundedRectangle(cornerRadius: self.calculator.cellSize / 3)
+                .frame(width: self.calculator.size, height: self.calculator.size)
+                .foregroundColor(Color("GridBackgroundColor"))
+                .gesture(DragGesture(minimumDistance: 0.0)
+                    .onChanged { value in
+                        self.dragGestureChanged(value)
+                    }.onEnded { _ in
+                        self.startingGesture = true
+                    }
+                )
+            
+            Path { path in
+                let numberGridLines = self.colony.size
+                for index in 0..<numberGridLines {
+                    let offset: CGFloat = CGFloat(index) * self.calculator.size / CGFloat(numberGridLines)
+                    
+                    path.move(to: CGPoint(x: 0, y: offset))
+                    path.addLine(to: CGPoint(x: self.calculator.size, y: offset))
+                    path.move(to: CGPoint(x: offset, y: 0))
+                    path.addLine(to: CGPoint(x: offset, y: self.calculator.size))
+                }
+            }
+            .stroke(Color.white, lineWidth: 2)
+            
             ForEach(0..<self.colony.size) { row in
-                HStack(spacing: 0) {
-                    ForEach(0..<self.colony.size) { col in
-                        RoundedRectangle(cornerRadius: self.calculator.cellSize / 4)
+                ForEach(0..<self.colony.size) { col in
+                    if self.colony.isCellAlive(Cell(row, col)) {
+                        RoundedRectangle(cornerRadius: self.calculator.cellSize / 3)
                             .frame(width: self.calculator.cellSize, height: self.calculator.cellSize)
-                            .foregroundColor(self.colony.isCellAlive(Cell(row, col)) ? Color.accentColor : Color("DeadCellColor"))
-                            .padding(self.calculator.cellPadding / 2)
-                            .highPriorityGesture(TapGesture().onEnded{
-                                self.colony.toggleCell(Cell(row, col))
-                            })
+                            .foregroundColor(Color.accentColor)//self.colony.isCellAlive(Cell(row, col)) ? Color.accentColor : Color("DeadCellColor"))
+                            .offset(x: CGFloat(col) * (self.calculator.cellSize + self.calculator.cellPadding), y: CGFloat(row) * (self.calculator.cellSize + self.calculator.cellPadding))
                     }
                 }
             }
         }
+        .frame(width: self.calculator.size, height: self.calculator.size)
         .drawingGroup()
-        .gesture(DragGesture(minimumDistance: 0.0)
-            .onChanged { value in
-                self.dragGestureChanged(value)
-            }.onEnded { _ in
-                self.startingGesture = true
-            }
-        )
     }
 
     func dragGestureChanged(_ value: DragGesture.Value) {

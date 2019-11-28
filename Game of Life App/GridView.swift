@@ -18,7 +18,7 @@ struct GridView: View {
     
     func grid(geometry: GeometryProxy) -> some View {
         let calculator = GridCalculator(colonySize: self.colony.size, cellPadding: 2, geometry: geometry)
-        return Grid(colony: self.$colony, calculator: calculator)
+        return Grid(colony: self.$colony, calculator: calculator, geometry: geometry)
     }
 }
 
@@ -27,14 +27,15 @@ struct GridCalculator {
     let colonySize: CGFloat
     let cellSize: CGFloat
     let geometry: GeometryProxy
+    let size: CGFloat
     
     init(colonySize: Int, cellPadding: CGFloat, geometry: GeometryProxy) {
         self.cellPadding = cellPadding
         self.geometry = geometry
         self.colonySize = CGFloat(colonySize)
         
-        let screenSize = min(geometry.size.height, geometry.size.width)
-        let gridSize = (screenSize - cellPadding * (self.colonySize - 1))
+        self.size = min(geometry.size.height, geometry.size.width)
+        let gridSize = size - cellPadding * (self.colonySize - 1)
         self.cellSize = gridSize / self.colonySize
     }
     
