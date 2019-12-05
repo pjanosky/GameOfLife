@@ -19,7 +19,7 @@ struct ColonyDetail: View {
                     Spacer().frame(width: 100)
                     Spacer()
                     
-                    TextField("\(self.colony.name)", text: self.$colony.name)
+                    TextField("Name", text: self.$colony.name)
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
                     
@@ -41,7 +41,8 @@ struct ColonyDetail: View {
                 GridView(colony: self.$colony).padding(15)
                 ControlsView(colony: self.$colony, width: geometry.size.width)
                     .padding(.horizontal)
-            }
+                }.navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }

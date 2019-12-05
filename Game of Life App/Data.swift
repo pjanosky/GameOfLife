@@ -9,8 +9,8 @@ import Foundation
 
 
 class Data: ObservableObject, Codable {
-    @Published var colonies: [Colony] = [Colony(name: "Colony 1", size: 60), Colony(name: "Colony 2", size: 60)]
-    @Published var templates: [Colony] = [Colony(name: "Template 1", size: 60), Colony(name: "Template 2", size: 60)]
+    @Published var colonies: [Colony] = [Colony(name: "Untitled", size: 60)]
+    @Published var templates: [Colony] = [Colony(name: "Blank", size: 60)]
     @Published var currentColony = 0
     
     static var nextID = 0
@@ -19,13 +19,7 @@ class Data: ObservableObject, Codable {
         return nextID
     }
     
-    init() {
-        colonies[0].setCellAlive(Cell(10, 2))
-        colonies[1].setCellAlive(Cell(10, 10))
-        
-        templates[0].setCellAlive(Cell(40, 40))
-        templates[1].setCellAlive(Cell(30, 40))
-    }
+    init() {}
     
     
     enum CodingKeys: String, CodingKey {

@@ -38,14 +38,6 @@ struct TemplatesModal: View {
                     Text("Apply")
                 }.disabled(self.selectedTemplate == nil)
             }.padding()
-
-            Button(action: {
-                var newTempate = Colony(name: self.colony.name, size: 60)
-                newTempate.setColonyFromCells(cells: self.colony.livingCells)
-                self.data.templates.append(newTempate)
-            }) {
-                Text("Save Current Colony")
-            }
             
             List {
                 ForEach(self.data.templates) { template in
@@ -60,9 +52,9 @@ struct TemplatesModal: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("\(self.colony.name)")
+                            Text("\(template.name)")
                                 .font(.headline)
-                            Text("\(self.colony.numberLivingCells) Alive \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells")")
+                            Text("\(template.numberLivingCells) Living \(template.numberLivingCells == 1 ? "Cell" : "Cells")")
                         }.padding(5)
                     }
                     .foregroundColor((self.selectedTemplate != nil && template == self.selectedTemplate!) ? .accentColor : .primary)
@@ -71,6 +63,16 @@ struct TemplatesModal: View {
                     }
                 }.onDelete(perform: self.deleteTemplate)
             }
+            
+            Divider()
+            
+            Button(action: {
+                var newTempate = Colony(name: self.colony.name, size: 60)
+                newTempate.setColonyFromCells(cells: self.colony.livingCells)
+                self.data.templates.append(newTempate)
+            }) {
+                Text("Save Current Colony")
+            }.padding()
         }
     }
     

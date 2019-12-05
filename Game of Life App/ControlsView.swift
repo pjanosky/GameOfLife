@@ -30,8 +30,8 @@ struct ControlsView: View {
         
         formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 1
-        formatter.maximumFractionDigits = 1
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
     }
     
     var controls: some View {
@@ -68,7 +68,7 @@ struct ControlsView: View {
                     Text("\(self.formatter.string(from: NSNumber(value: self.speed))!)s")
                 }
             
-                Slider(value: self.$speed, in: 0.09...3.01, step: 0.1, onEditingChanged: {_ in
+                Slider(value: self.$speed, in: 0.049...3.001, step: 0.05, onEditingChanged: {_ in
                     if self.running {
                         self.createNewTimer()
                     }

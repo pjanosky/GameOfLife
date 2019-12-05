@@ -24,6 +24,7 @@ struct ColonyList: View {
                                 }
                             ) {ColonyPreview(colony: self.data.colonies[index])}
                         }.onDelete(perform: self.deleteColony)
+                        .onMove(perform: self.moveColony)
                     }
                 }
             }
@@ -33,7 +34,7 @@ struct ColonyList: View {
                 trailing: Button(action: self.addColony) {
                     Text("+").font(.title)
                 }
-             )
+            )
             ColonyDetail(colony: self.$data.colonies[self.data.currentColony])
         }
     }
@@ -45,7 +46,12 @@ struct ColonyList: View {
     }
     
     func deleteColony(at offsets: IndexSet) {
-        self.data.colonies.remove(atOffsets: offsets)
+        if data.colonies.count > 1 {
+            self.data.colonies.remove(atOffsets: offsets)
+        }
+    }
+    func moveColony(from source: IndexSet, to destination: Int) {
+        self.data.colonies.move(fromOffsets: source, toOffset: destination)
     }
 }
 
