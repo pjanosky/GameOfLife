@@ -11,6 +11,7 @@ import SwiftUI
 struct ColonyList: View {
     @EnvironmentObject var data: Data
     @State private var showTemplatesModal = false
+    @State var dummyColony = Colony(name: "dummy", size: 30)
     
     var body: some View {
         NavigationView {
@@ -23,7 +24,7 @@ struct ColonyList: View {
                                     self.data.currentColony = index
                                 }
                             ) {ColonyPreview(colony: self.data.colonies[index])}
-                        }.onDelete(perform: self.deleteColony)
+                        }
                         .onMove(perform: self.moveColony)
                     }
                 }
@@ -46,9 +47,7 @@ struct ColonyList: View {
     }
     
     func deleteColony(at offsets: IndexSet) {
-        if data.colonies.count > 1 {
-            self.data.colonies.remove(atOffsets: offsets)
-        }
+        self.data.colonies.remove(atOffsets: offsets)
     }
     func moveColony(from source: IndexSet, to destination: Int) {
         self.data.colonies.move(fromOffsets: source, toOffset: destination)
@@ -68,4 +67,3 @@ struct ColonyList_Previews: PreviewProvider {
         ColonyList()
     }
 }
-

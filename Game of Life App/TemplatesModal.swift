@@ -63,16 +63,6 @@ struct TemplatesModal: View {
                     }
                 }.onDelete(perform: self.deleteTemplate)
             }
-            
-            Divider()
-            
-            Button(action: {
-                var newTempate = Colony(name: self.colony.name, size: 60)
-                newTempate.setColonyFromCells(cells: self.colony.livingCells)
-                self.data.templates.append(newTempate)
-            }) {
-                Text("Save Current Colony")
-            }.padding()
         }
     }
     

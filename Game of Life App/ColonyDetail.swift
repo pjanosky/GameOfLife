@@ -16,8 +16,13 @@ struct ColonyDetail: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 HStack() {
-                    Spacer().frame(width: 100)
-                    Spacer()
+                    Button(action: {
+                        var newTempate = Colony(name: self.colony.name, size: 60)
+                        newTempate.setColonyFromCells(cells: self.colony.livingCells)
+                        self.data.templates.append(newTempate)
+                    }) {
+                        Text("Save As Template")
+                    }.frame(width: 200, alignment: .leading)
                     
                     TextField("Name", text: self.$colony.name)
                         .font(.largeTitle)
@@ -32,7 +37,7 @@ struct ColonyDetail: View {
                     }.sheet(isPresented: self.$showTemplatesModal) {
                         TemplatesModal(colony: self.$colony, showing: self.$showTemplatesModal)
                             .environmentObject(self.data)
-                    }.frame(width: 100)
+                    }.frame(width: 200, alignment: .trailing)
                 }.padding(.horizontal)
                 
                 Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
