@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         
         if let loadedData = Data.load(fromFile: "data") {
-            data = loadedData
+            data.colonies = loadedData.colonies
         }
         // "data" would then be passed into the ColonyList view below instead of created inside of the view
         
