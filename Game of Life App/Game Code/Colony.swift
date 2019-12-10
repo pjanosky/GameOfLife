@@ -24,6 +24,11 @@ struct Colony: CustomStringConvertible, Identifiable, Codable, Equatable {
         self.size = size
     }
     
+    init(name: String, size: Int, cells: Set<Cell>) {
+        self.name = name
+        self.size = size
+        setColonyFromCells(cells: cells)
+    }
 
     mutating func setColonyFromCells(cells: Set<Cell>) {
         clear()
