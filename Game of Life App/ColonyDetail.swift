@@ -22,16 +22,24 @@ struct ColonyDetail: View {
                         self.isShowingAlert.toggle()
                     }) {
                         Text("Save As Template")
-                    }.frame(width: 200, alignment: .leading)
+                    }
+                    .frame(width: 200, alignment: .leading)
+                    .alert(isPresented: self.$isShowingAlert) {
+                        Alert(
+                            title: Text("Save as \"\(self.colony.name)\"?"),
+                            primaryButton: .default(Text("Save"), action: self.saveTemplate),
+                            secondaryButton: .cancel()
+                        )
+                    }
 
 
                     TextField("Name", text: self.$colony.name)
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
-                    
-                    
+
+
                     Spacer()
-                    
+
                     Button(action: {
                         self.showTemplatesModal = true
                     }) {
@@ -51,7 +59,11 @@ struct ColonyDetail: View {
                 }.navigationBarTitle("")
             .navigationBarHidden(true)
         }
-        .textFieldAlert(isShowing: self.$isShowingAlert, text: self.$data.colonies[self.data.currentColony].name, colony: self.colony)
+    }
+    
+    func saveTemplate() {
+        let newTemplate = Colony(name: self.colony.name, size: 60, cells: self.colony.livingCells)
+        self.data.templates.append(newTemplate)
     }
 }
 
