@@ -11,22 +11,24 @@ struct ColonyDetail: View {
     @EnvironmentObject var data: Data
     @Binding var colony: Colony
     @State private var showTemplatesModal = false
+    @State var isShowingAlert = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 HStack() {
                     Button(action: {
-                        var newTempate = Colony(name: self.colony.name, size: 60)
-                        newTempate.setColonyFromCells(cells: self.colony.livingCells)
-                        self.data.templates.append(newTempate)
+                        
+                        self.isShowingAlert.toggle()
                     }) {
                         Text("Save As Template")
                     }.frame(width: 200, alignment: .leading)
-                    
+
+
                     TextField("Name", text: self.$colony.name)
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
+                    
                     
                     Spacer()
                     
@@ -49,6 +51,7 @@ struct ColonyDetail: View {
                 }.navigationBarTitle("")
             .navigationBarHidden(true)
         }
+        .textFieldAlert(isShowing: self.$isShowingAlert, text: self.$data.colonies[self.data.currentColony].name, colony: self.colony)
     }
 }
 

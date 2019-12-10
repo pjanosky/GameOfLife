@@ -15,6 +15,7 @@
 		8E5C094B2382089900A777B1 /* ColonyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094A2382089900A777B1 /* ColonyList.swift */; };
 		8E5C094D238208B400A777B1 /* ColonyPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094C238208B400A777B1 /* ColonyPreview.swift */; };
 		8E5C094F238208CC00A777B1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5C094E238208CC00A777B1 /* Grid.swift */; };
+		8E8C3323239ACA2400A9F5B7 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C3322239ACA2400A9F5B7 /* TextFieldAlert.swift */; };
 		D05D360B238D807300D1BFC4 /* AddColony.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D360A238D807300D1BFC4 /* AddColony.swift */; };
 		D05D360D238D81B000D1BFC4 /* TemplatesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */; };
 		D071E04E2398A81B001BE696 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = D071E04D2398A81B001BE696 /* data.json */; };
@@ -41,6 +42,7 @@
 		8E5C094A2382089900A777B1 /* ColonyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColonyList.swift; sourceTree = "<group>"; };
 		8E5C094C238208B400A777B1 /* ColonyPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColonyPreview.swift; sourceTree = "<group>"; };
 		8E5C094E238208CC00A777B1 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		8E8C3322239ACA2400A9F5B7 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
 		D05D360A238D807300D1BFC4 /* AddColony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddColony.swift; sourceTree = "<group>"; };
 		D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesModal.swift; sourceTree = "<group>"; };
 		D071E04D2398A81B001BE696 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				8E5C094C238208B400A777B1 /* ColonyPreview.swift */,
 				D0F647F32382077400BD113C /* ColonyDetail.swift */,
 				D05D360C238D81B000D1BFC4 /* TemplatesModal.swift */,
+				8E8C3322239ACA2400A9F5B7 /* TextFieldAlert.swift */,
 				D0F647F52382077400BD113C /* ControlsView.swift */,
 				D0F647F62382077400BD113C /* GridView.swift */,
 				8E5C094E238208CC00A777B1 /* Grid.swift */,
@@ -220,6 +223,7 @@
 				D0F647F72382077400BD113C /* ColonyDetail.swift in Sources */,
 				D0F647F92382077400BD113C /* ControlsView.swift in Sources */,
 				8E5C094D238208B400A777B1 /* ColonyPreview.swift in Sources */,
+				8E8C3323239ACA2400A9F5B7 /* TextFieldAlert.swift in Sources */,
 				D0F647EF2382070E00BD113C /* Colony.swift in Sources */,
 				D0F647FA2382077400BD113C /* GridView.swift in Sources */,
 				D0F647F12382070E00BD113C /* Cell.swift in Sources */,
@@ -360,18 +364,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Game of Life App/Preview Content\"";
-				DEVELOPMENT_TEAM = 2TM36SFTW5;
+				DEVELOPMENT_TEAM = Z89X7W53TL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Game of Life App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Peter-Janosky-Game-of-Life-App.fwhaiohga";
+				PRODUCT_BUNDLE_IDENTIFIER = kiranmak.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -381,18 +387,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Game of Life App/Preview Content\"";
-				DEVELOPMENT_TEAM = 2TM36SFTW5;
+				DEVELOPMENT_TEAM = Z89X7W53TL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Game of Life App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Peter-Janosky-Game-of-Life-App.fwhaiohga";
+				PRODUCT_BUNDLE_IDENTIFIER = kiranmak.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
