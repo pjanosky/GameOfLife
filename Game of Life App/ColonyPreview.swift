@@ -16,9 +16,6 @@ struct ColonyPreview: View {
             Text("\(colony.name)")
                 .font(.headline)
             Text("Generation \(self.colony.generationNumber),  \(self.colony.numberLivingCells) \(self.colony.numberLivingCells == 1 ? "Cell" : "Cells") Alive")
-//            GeometryReader { geometry in
-//                Grid(colony: self.colony, geometry: geometry, cellPadding: 0.5)
-//            }.frame(height: 250)
         }.padding(5)
     }
 }

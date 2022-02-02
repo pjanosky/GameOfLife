@@ -68,7 +68,7 @@ struct TextFieldAlert_Previews: PreviewProvider {
 }
 */
 
-extension View {
+fileprivate extension View {
 
     func textFieldAlert(isShowing: Binding<Bool>,
                         text: Binding<String>,
