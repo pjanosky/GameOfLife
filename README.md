@@ -16,6 +16,9 @@ Additionally, the current board can be loaded from or saved to a template. Templ
 ## Design
 This app uses the standard SwiftUI convention of composing larger views from smaller views. The main view for the app is the `ColonyDetail` view. The game logic is implemented in the `Colony` struct which also serves as the model for this app.
 
+## Purpose
+This project was designed to continue to explore the functionality of SwiftUI. More importantly, it was also created to evaluate the performance of the framework for moderately intensive graphics, as to assess it applicability to other applications.
+
 ## Screenshots
 The Main App Interface
 ![](Screenshots/Screenshot1.png)
